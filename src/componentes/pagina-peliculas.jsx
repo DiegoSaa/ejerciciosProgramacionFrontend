@@ -6,6 +6,8 @@ import lupa from "../data/Vector.png";
 import opciones from "../data/Filter Icon.png";
 import flecha from "../data/Arrow Icon.png";
 
+
+//componente del ejercicio 3, llama el componente pelicula para hacer el render de cada pelicula, segun la busqueda
 class Ejercicio3 extends Component {
 
 
@@ -64,6 +66,8 @@ class Ejercicio3 extends Component {
     }
    
 }
+
+//funcion para buscar el nombre o nombres de los generos por medio de la lista de generos JSON
 
 function generos(ids) {
 

@@ -1,6 +1,7 @@
 import { Dropdown, Nav, Button } from 'react-bootstrap'
 import React, { Component } from 'react';
 
+//experimentando con react-bootstrap
 class Menu extends Component {
   render() {
     return (

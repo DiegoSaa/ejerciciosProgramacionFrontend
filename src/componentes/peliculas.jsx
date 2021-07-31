@@ -4,6 +4,9 @@ import Estrellas from "../componentes/estrellas.jsx"
 
 const url_peliculas="https://image.tmdb.org/t/p/w500"
 
+
+//componente pelicula, se encarga de mostrar el componente de una sola pelicula
+//usa el componente estrellas para pintar la calificacion
 const Pelicula=(props)=>{
 
     var fecha = new Date(props.info.release_date);

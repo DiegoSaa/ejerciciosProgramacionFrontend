@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-
+//componente del ejercicio 1, para crear la pagina que se encarga de generar la serie de fibonacci
 class SerieFibonacci extends Component {
     state = {  
 
@@ -40,7 +40,8 @@ class SerieFibonacci extends Component {
             );
     }   
 }
- 
+
+//Se encarga de crear la serie Fibonacci completa
 function fibonacci(num) {
 
     let numero1 = 0, numero2 = 1, siguiente;

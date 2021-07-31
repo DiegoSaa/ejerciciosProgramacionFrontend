@@ -2,7 +2,7 @@ import React from 'react';
 import estrellaOn from "../data/Star 3.png";
 import estrellaOff from "../data/Star 5.png";
 
-
+//componente para crear el promedio de estrellas segun la calificacion de la pelicula
 const Estrellas=(props)=>{
 
     let numero=Math.round(props.estrellas/2);
