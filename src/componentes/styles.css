@@ -1,0 +1,35 @@
+.movie {
+  width: 420px;
+  margin: 0px;
+  font-size: 10px;
+  text-align: justify;
+  padding: 3px;
+}
+
+.p {
+  margin: 0px;
+  padding: 0 5px 0 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.movie h3 {
+  font-size: 17px;
+  text-align: justify;
+}
+.movieImagen {
+  width: 200px;
+  height: 300px;
+}
+
+.container {
+  width: 100%;
+}
+
+.estrella {
+  width: 10px;
+  max-width: 10%;
+}
+
+.contenedor-estrella {
+  display: flex;
+}
