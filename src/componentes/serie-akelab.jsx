@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-//componente de la pagina para mostrar la serie AKELAB
+
 class SerieAkelab extends Component {
     state = {  
 
@@ -22,7 +22,6 @@ class SerieAkelab extends Component {
 
     handleClick = (e) =>{
         this.setState({salida: secuencia(this.state.valor)})
-        console.log('handle change called')
     }
 
 
@@ -37,8 +36,7 @@ class SerieAkelab extends Component {
             );
     }   
 }
-
-//funcion para generar la secuencia akelab por medio de un numero
+ 
 function secuencia(num) {
 
 

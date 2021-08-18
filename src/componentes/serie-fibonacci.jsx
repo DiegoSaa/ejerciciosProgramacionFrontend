@@ -1,47 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-//componente del ejercicio 1, para crear la pagina que se encarga de generar la serie de fibonacci
-class SerieFibonacci extends Component {
-    state = {  
 
-        valor:0,
-        salida: "Click para mostrar serie"
-    }
+const SerieFibonacci = ()=> {
+    
 
-    handleChange = (e) =>{
-        this.setState({valor: e.target.value})
+    const [valor, setValor]=useState(0)
+
+    const [salida, setSalida]=useState("Click para mostrar serie")
+
+    const handleChange = (e) =>{
+
+        setValor(e.target.value)
+
         var letterNumber = /^[1-9][0-9]*$/;
+
         if(!e.target.value.match(letterNumber)){
-            this.setState({salida: "valor invalido"})
+            setSalida("valor invalido")
 
         }else{
-            this.setState({salida: "valor valido"})
+            setSalida("valor valido")
 
         }
     }
 
-    handleClick = (e) =>{
-        this.setState({salida: fibonacci(this.state.valor)})
-        console.log('handle change called')
+    const handleClick = (e) =>{
+        setSalida(fibonacci(valor))
     }
 
     
-
-    render() { 
-        return (
+    return (
+        <div>
+            <h1>Serie de Fibonacci</h1>
             <div>
-                <h1>Serie de Fibonacci</h1>
-                <div>
-                    <input onChange={(e) => {this.handleChange(e)}}/>
-                    <button  className="btn btn-primary btn-sm" onClick={(e) => {this.handleClick(e)}}>Mostrar serie</button>
-                </div>
-                <p>{this.state.salida}</p>
+                <input onChange={(e) => {handleChange(e)}}/>
+                <button  className="btn btn-primary btn-sm" onClick={(e) => {handleClick(e)}}>Mostrar serie</button>
             </div>
-            );
-    }   
+            <p>{salida}</p>
+        </div>
+        );
+      
 }
 
-//Se encarga de crear la serie Fibonacci completa
 function fibonacci(num) {
 
     let numero1 = 0, numero2 = 1, siguiente;
@@ -50,7 +49,7 @@ function fibonacci(num) {
 
 
     for (let i = 1; i <= num; i++) {
-        console.log(numero1);
+
         siguiente = numero1 + numero2;
         numero1 = numero2;
         numero2 = siguiente;
@@ -61,7 +60,9 @@ function fibonacci(num) {
     return salida.join(', ')
 }
 
-
-
-
 export default SerieFibonacci;
+
+ 
+
+
+

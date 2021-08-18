@@ -2,3 +2,7 @@
   transform: rotate(90deg);
   margin: 5px;
 }
+
+.dropmenu {
+  float: left;
+}

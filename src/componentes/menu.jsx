@@ -1,14 +1,11 @@
 import React  from 'react';
 import "./stylesMenu.css"
 
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SerieAkelab from './serie-akelab.jsx';
 import SerieFibonacci from './serie-fibonacci.jsx';
 import Ejercicio3 from './pagina-peliculas';
-
 
 import {
     BrowserRouter as Router,
@@ -17,7 +14,6 @@ import {
     Link
   } from "react-router-dom";
 
-//Crea los 3 menus correspondientes a cada ejercicio, luego genera la componente de cada uno en paginas distintas
 export default function App() {
     return (
       <Router>

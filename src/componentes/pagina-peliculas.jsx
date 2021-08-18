@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import Pelicula from './peliculas';
-import Menu from './genero';
-import BancoPeliculas from '../data/Movies.json'
+import Desplegable from './genero';
+import Filtro from './filtroFechaTitulo';
 import lupa from "../data/Vector.png";
-import opciones from "../data/Filter Icon.png";
-import flecha from "../data/Arrow Icon.png";
+import BancoPeliculas from "../data/Movies.json";
 
 
-//componente del ejercicio 3, llama el componente pelicula para hacer el render de cada pelicula, segun la busqueda
+
 class Ejercicio3 extends Component {
 
 
     state = {  
         busqueda:"",
-        busquedaPeliculas: BancoPeliculas.results
+        busquedaPeliculas: []
+    }
+
+    componentDidMount(){
+        dbPeliculas("",[],"0").then((response) => this.setState({busquedaPeliculas: response}))
     }
 
 
@@ -22,15 +25,42 @@ class Ejercicio3 extends Component {
     }
 
     handleClick = (e) =>{
-        const filtro= BancoPeliculas.results.filter(busqueda => busqueda.title.toLowerCase().includes(this.state.busqueda.toLowerCase()))
+        const filtro= dbPeliculas(this.state.busqueda.toLowerCase(), [],0)
         this.setState({busquedaPeliculas: filtro})
     }
 
-    
+    handleOnActive = (e) =>{
+        
+        //busqueda.genre_ids.every(r=>identi.includes(r))
+       
+        const identi=e.map(values=> values.id)
+
+        const filtro= BancoPeliculas.results.filter(busqueda => identi.every(r=>busqueda.genre_ids.includes(r)))
+        
 
     
+        if(filtro.length>0){
+
+            this.setState({busquedaPeliculas: filtro})
+
+        }
+        else{
+
+            this.setState({busquedaPeliculas: []})
+
+            
+        }
+        
+   
+
+
+
+    }
+
 
     render (){
+
+        const {busquedaPeliculas} = this.state;
 
         
 
@@ -41,33 +71,72 @@ class Ejercicio3 extends Component {
                 <div>
                     <input onChange={(e) => {this.handleChange(e)}}/>
                     <button  className="btn btn-secundary btn-sm" onClick={(e) => {this.handleClick(e)}}><img src={lupa} alt="lupa"/></button>
-                    <button  className="btn btn-secundary btn-sm" ><img src={opciones} alt="opciones"/></button>
-                    <Menu/>
+                    <Desplegable onActive={this.handleOnActive} generos={BancoPeliculas.genres}/>
                     <span> Ordenar</span>
-                    <button  className="flecha btn btn-secundary btn-sm" ><img src={flecha} alt="flecha"/></button>
-
+                    
+                    <Filtro onActive={this.handleOnActiveFiltro} fechas={BancoPeliculas.results.release_date} votos={BancoPeliculas.results.vote_average}/>
+                    
                 </div>
 
 
          <div className="container-fluid m-2 p-2 ">  
           <div className="row">
-            {this.state.busquedaPeliculas.map(pelicula => (
+            {busquedaPeliculas.length > 0 ? busquedaPeliculas.map(pelicula => (
                 
                 <Pelicula id={pelicula.id} key= {pelicula.id} titulo={pelicula.title} info={pelicula} 
                 genero={ generos(pelicula.genre_ids)} />
 
-            ))
+            )) : (<div>Loading...</div>)
             }
             </div>
           </div>
+
         </div>
+
+        
 
         );
     }
    
 }
 
-//funcion para buscar el nombre o nombres de los generos por medio de la lista de generos JSON
+
+// Metodo POST :
+async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+  
+async function dbPeliculas (busqueda1, generos1, fecha1) {
+
+    const res= await postData('http://localhost:3000/peliculas', {
+    busqueda: busqueda1,
+    generos: generos1,
+    fecha: fecha1
+    })
+
+    return res;
+
+}
+
+
+const res=postData('http://localhost:3000/peliculas', {
+    busqueda: "el",
+    generos: [14],
+    fecha: "0"
+})
+    .then(data => {
+      console.log(data); // JSON data parsed by `data.json()` call
+    });
+
 
 function generos(ids) {
 
@@ -78,5 +147,8 @@ function generos(ids) {
     
     return generos.join(',')
 }
+
+
+
 
 export default Ejercicio3;
