@@ -1,72 +1,37 @@
-import React, { Component } from 'react';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCalculo, actionNumero } from "../actions/akelabActions";
 
+const SerieAkelab = () => {
+  const dispatch = useDispatch();
+  const { valor, salida } = useSelector((state) => state.akelabReducer);
 
-class SerieAkelab extends Component {
-    state = {  
-
-        valor:0,
-        salida: "Click para mostrar secuencia AKELAB"
+  const handleChange = (e) => {
+    //this.setState({ valor: e.target.value });
+    var letterNumber = /^[1-9][0-9]*$/;
+    if (!e.target.value.match(letterNumber)) {
+      //this.setState({ salida: "valor invalido" });
+    } else {
+      //this.setState({ salida: "valor valido" });
+      dispatch(actionNumero(e.target.value));
     }
+  };
 
-    handleChange = (e) =>{
-        this.setState({valor: e.target.value})
-        var letterNumber = /^[1-9][0-9]*$/;
-        if(!e.target.value.match(letterNumber)){
-            this.setState({salida: "valor invalido"})
+  const handleClick = (e) => {
+    //this.setState({ salida: secuencia(this.state.valor) });
+    dispatch(actionCalculo());
+  };
 
-        }else{
-            this.setState({salida: "valor valido"})
-
-        }
-    }
-
-    handleClick = (e) =>{
-        this.setState({salida: secuencia(this.state.valor)})
-    }
-
-
-    render() { 
-        return (
-             <div>
-                <h1>Secuencia AKELAB</h1>
-                <input onChange={(e) => {this.handleChange(e)}}/>
-                <button  className=" btn btn-primary btn-sm" onClick={(e) => {this.handleClick(e)}}>Mostrar serie</button>
-                <p>{this.state.salida}</p>
-            </div>
-            );
-    }   
-}
- 
-function secuencia(num) {
-
-
-    let salida=[]
-
-
-    for (let i = 1; i <= num; i++) {
-        
-        if(i%3===0 && i%5===0){
-
-            salida.push("AKELAB")
-
-        } else if(i%3===0){
-
-            salida.push("AKE")
-        } else if(i%5===0){
-
-            salida.push("LAB")
-        } else{
-
-            salida.push(String(i))
-        }
-
-        
-    }
-
-    return salida.join(', ')
-}
-
-
-
+  return (
+    <div>
+      <h1>Secuencia AKELAB</h1>
+      <input onChange={handleChange} />
+      <button className=" btn btn-primary btn-sm" onClick={handleClick}>
+        Mostrar serie
+      </button>
+      <p>{salida}</p>
+    </div>
+  );
+};
 
 export default SerieAkelab;
