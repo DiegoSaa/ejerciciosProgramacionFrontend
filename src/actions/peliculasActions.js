@@ -4,14 +4,18 @@ export const actionText = (text) => ({
   type: "peliculas/change",
   text: text,
 });
-
-export const actionSet = (jsonPeliculas) => ({
-  type: "peliculas/set",
-  json: jsonPeliculas,
+export const actionGenres = (dataGenres) => ({
+  type: "peliculas/genres",
+  genres: dataGenres,
+});
+export const actionDate = (charDate) => ({
+  type: "peliculas/date",
+  date: charDate,
 });
 
-export const toggleLoading = () => ({
-  type: "peliculas/toggle",
+export const actionFilter = (jsonPeliculas) => ({
+  type: "peliculas/filter",
+  json: jsonPeliculas,
 });
 
 const getPeliculas = (peliculas) => ({
@@ -19,13 +23,15 @@ const getPeliculas = (peliculas) => ({
   payload: peliculas,
 });
 
+//ejemplo con async y await
 export const actionGet = () => {
   return async (dispatch) => {
     let data;
     const response = await apiCalls.getPeliculas();
     if (!response.ok) return false;
     data = await response.json();
-    dispatch(getPeliculas(data.results));
+    dispatch(getPeliculas(data));
+    dispatch(actionFilter(data.results));
 
     //funca, ejemplo con async y Promesas
 

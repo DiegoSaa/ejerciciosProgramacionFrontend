@@ -13,6 +13,7 @@ const SerieFibonacci = () => {
     } else {
       //setSalida("valor valido")
       dispatch(actionNumero(e.target.value));
+      console.log(valor);
     }
   };
 
@@ -29,7 +30,7 @@ const SerieFibonacci = () => {
             handleChange(e);
           }}
         />
-        <button className="btn btn-primary btn-sm" onClick={handleClick}>
+        <button className='btn btn-primary btn-sm' onClick={handleClick}>
           Mostrar serie
         </button>
       </div>

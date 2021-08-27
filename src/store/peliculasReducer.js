@@ -1,7 +1,9 @@
 const initialState = {
   busqueda: "",
   busquedaPeliculas: [],
-  isLoading: true,
+  movieFilter: [],
+  selectedGenres: [],
+  selectedDate: 0,
 };
 
 const peliculasReducer = (state = initialState, action) => {
@@ -11,16 +13,25 @@ const peliculasReducer = (state = initialState, action) => {
         ...state,
         busqueda: action.text,
       };
+    case "peliculas/genres":
+      return {
+        ...state,
+        selectedGenres: action.genres,
+      };
+    case "peliculas/date":
+      return {
+        ...state,
+        selectedDate: action.date,
+      };
     case "peliculas/get":
       return {
         ...state,
         busquedaPeliculas: action.payload,
       };
-
-    case "peliculas/set":
+    case "peliculas/filter":
       return {
         ...state,
-        busquedaPeliculas: action.json,
+        movieFilter: action.json,
       };
 
     default:

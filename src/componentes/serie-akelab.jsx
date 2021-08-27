@@ -8,12 +8,14 @@ const SerieAkelab = () => {
 
   const handleChange = (e) => {
     //this.setState({ valor: e.target.value });
+
     var letterNumber = /^[1-9][0-9]*$/;
     if (!e.target.value.match(letterNumber)) {
       //this.setState({ salida: "valor invalido" });
     } else {
       //this.setState({ salida: "valor valido" });
       dispatch(actionNumero(e.target.value));
+      console.log(valor);
     }
   };
 
@@ -26,7 +28,7 @@ const SerieAkelab = () => {
     <div>
       <h1>Secuencia AKELAB</h1>
       <input onChange={handleChange} />
-      <button className=" btn btn-primary btn-sm" onClick={handleClick}>
+      <button className=' btn btn-primary btn-sm' onClick={handleClick}>
         Mostrar serie
       </button>
       <p>{salida}</p>

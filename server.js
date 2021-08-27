@@ -14,7 +14,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("holi");
+  res.send("Server listo");
 });
 
 app.listen(3000, () => {
@@ -24,6 +24,7 @@ app.listen(3000, () => {
 app.get("/peliculas", (req, res) => {
   const respuesta = BancoPeliculas;
   res.json(respuesta);
+  console.log("respondi");
 });
 
 // busquedas = (texto, generos, opcFecha) =>{
