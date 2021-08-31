@@ -10,6 +10,7 @@ const Filtro = (props) => {
     const selected = parseInt(e);
     props.onActive(selected);
     setFilter(selected);
+    console.log("valor señal onSelect: ", e);
   };
 
   return (

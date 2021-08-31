@@ -34,7 +34,7 @@ const Ejercicio3 = () => {
   }, []);
 
   useEffect(() => {
-    //const identi = genresIds.map((values) => values);
+    //cuando cambian los generos activos se cambia el estado de los generos
 
     const genres = BancoPeliculas.genres.filter(
       (generos, index) => activos[index]
@@ -42,8 +42,11 @@ const Ejercicio3 = () => {
 
     const data = genres.map((generos) => generos.name);
 
-    dispatch(actionGenres(data));
+    dispatch(actionGenres(data)); //actualiza los generos activos de: selectedGenres
     const peliculas = aplicarFiltro(busqueda, data, selectedDate);
+    console.log("genero: >>>>", selectedGenres);
+
+    //aplica el filtro de la busqueda
     dispatch(actionFilter(peliculas));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,20 +59,18 @@ const Ejercicio3 = () => {
 
   const lupaClick = (e) => {
     const peliculas = aplicarFiltro(busqueda, selectedGenres, selectedDate);
-    console.log(
-      "resultado filtro: ",
-      busqueda,
-      selectedGenres,
-      selectedDate,
-      peliculas
-    );
     dispatch(actionFilter(peliculas));
   };
 
+  //funcion para el cambio del filtro de fecha y votos
   const handleOnActiveFiltro = (e) => {
-    const fecha = parseInt(e);
+    const fecha = e;
+    //actualiza el filtro activo de la fecha
     dispatch(actionDate(fecha));
-    const peliculas = aplicarFiltro(busqueda, selectedGenres, selectedDate);
+
+    const peliculas = aplicarFiltro(busqueda, selectedGenres, fecha);
+    console.log("selected Date: >>>>", fecha);
+    //aplica el nuevo filtro
     dispatch(actionFilter(peliculas));
   };
 
@@ -93,16 +94,6 @@ const Ejercicio3 = () => {
             generosIds2Label(movie.genre_ids).includes(genId)
           ) && movie.title.toLowerCase().includes(texto.toLowerCase())
       );
-
-    console.log(
-      "filtro llamado con: ",
-      typeof texto,
-      texto,
-      ", ",
-      generos,
-      opcFecha,
-      filtroBusqueda
-    );
 
     if (filtroBusqueda.length > 0) {
       switch (opcFecha) {
