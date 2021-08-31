@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionArray } from "../actions/genresActions";
 
 const Desplegable = (props) => {
-  const generos = props.generos.map((elemento) => elemento.name);
+  const generos = props.generos?.map((elemento) => elemento.name);
   const dispatch = useDispatch();
   const { activos } = useSelector((state) => state.dropdownGenres);
 
@@ -21,17 +21,18 @@ const Desplegable = (props) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        {generos.map((genero, index) => (
-          <Dropdown.Item
-            id={index}
-            key={index}
-            eventKey={index}
-            active={activos[index]}
-          >
-            {" "}
-            {genero}{" "}
-          </Dropdown.Item>
-        ))}
+        {generos &&
+          generos.map((genero, index) => (
+            <Dropdown.Item
+              id={index}
+              key={index}
+              eventKey={index}
+              active={activos[index]}
+            >
+              {" "}
+              {genero}{" "}
+            </Dropdown.Item>
+          ))}
       </Dropdown.Menu>
     </Dropdown>
   );

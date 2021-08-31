@@ -1,26 +1,23 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCalculo, actionNumero } from "../actions/akelabActions";
+import { actionCalculo, actionSet } from "../actions/akelabActions";
 
 const SerieAkelab = () => {
   const dispatch = useDispatch();
-  const { valor, salida } = useSelector((state) => state.akelabReducer);
+  const { salida } = useSelector((state) => state.akelabReducer);
 
   const handleChange = (e) => {
-    //this.setState({ valor: e.target.value });
-
+    //se valida que el valor ingresado en el input sea un número
     var letterNumber = /^[1-9][0-9]*$/;
     if (!e.target.value.match(letterNumber)) {
-      //this.setState({ salida: "valor invalido" });
+      dispatch(actionSet("valor invalido"));
     } else {
-      //this.setState({ salida: "valor valido" });
-      dispatch(actionNumero(e.target.value));
-      console.log(valor);
+      dispatch(actionSet(e.target.value));
     }
   };
 
+  //con el evento click se maneja el cálculo por medio del reducer
   const handleClick = (e) => {
-    //this.setState({ salida: secuencia(this.state.valor) });
     dispatch(actionCalculo());
   };
 

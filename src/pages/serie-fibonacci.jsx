@@ -1,22 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCalculo, actionNumero } from "../actions/fibonacciActions";
+import { actionCalculo, actionSet } from "../actions/fibonacciActions";
 
 const SerieFibonacci = () => {
   const dispatch = useDispatch();
-  const { valor, salida } = useSelector((state) => state.fibonacciReducer);
+  const { salida } = useSelector((state) => state.fibonacciReducer);
 
   const handleChange = (e) => {
+    //se valida que el valor ingresado en el input sea un número
     var letterNumber = /^[1-9][0-9]*$/;
     if (!e.target.value.match(letterNumber)) {
-      //setSalida("valor invalido")
+      dispatch(actionSet("valor invalido"));
     } else {
-      //setSalida("valor valido")
-      dispatch(actionNumero(e.target.value));
-      console.log(valor);
+      dispatch(actionSet(e.target.value));
     }
   };
 
+  //con el evento click se maneja el cálculo por medio del reducer
   const handleClick = () => {
     dispatch(actionCalculo());
   };

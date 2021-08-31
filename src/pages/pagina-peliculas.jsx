@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import Pelicula from "./peliculas";
-import Desplegable from "./genero";
-import Filtro from "./filtroFechaTitulo";
+import Pelicula from "../componentes/peliculas";
+import Desplegable from "../componentes/genero";
+import Filtro from "../componentes/filtroFechaTitulo";
 import lupa from "../data/Vector.png";
-import BancoPeliculas from "../data/Movies.json";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,8 +25,9 @@ const Ejercicio3 = () => {
   } = useSelector((state) => state.peliculasReducer);
 
   const { activos } = useSelector((state) => state.dropdownGenres);
+  const { filterData } = useSelector((state) => state.fechaReducer);
 
-  // Se ejecuta una vez al incio para hacer una petición a la API por el json contenedor de las peliculas
+  // Se ejecuta una vez al incio para hacer una petición a la API del json contenedor de las peliculas
   useEffect(() => {
     dispatch(actionGet());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,22 +35,25 @@ const Ejercicio3 = () => {
 
   useEffect(() => {
     //cuando cambian los generos activos se cambia el estado de los generos
-
-    const genres = BancoPeliculas.genres.filter(
+    const genres = busquedaPeliculas.genres?.filter(
       (generos, index) => activos[index]
     );
-
-    const data = genres.map((generos) => generos.name);
+    const data = genres?.map((generos) => generos.name);
 
     dispatch(actionGenres(data)); //actualiza los generos activos de: selectedGenres
     const peliculas = aplicarFiltro(busqueda, data, selectedDate);
-    console.log("genero: >>>>", selectedGenres);
-
     //aplica el filtro de la busqueda
     dispatch(actionFilter(peliculas));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activos]);
+
+  useEffect(() => {
+    //cuando cambian el filtro de fecha y votos activos se cambia el estado
+    const peliculas = aplicarFiltro(busqueda, selectedGenres, filterData);
+    dispatch(actionFilter(peliculas));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterData]);
 
   const textChange = (e) => {
     const text = e.target.value;
@@ -62,28 +65,16 @@ const Ejercicio3 = () => {
     dispatch(actionFilter(peliculas));
   };
 
-  //funcion para el cambio del filtro de fecha y votos
-  const handleOnActiveFiltro = (e) => {
-    const fecha = e;
-    //actualiza el filtro activo de la fecha
-    dispatch(actionDate(fecha));
-
-    const peliculas = aplicarFiltro(busqueda, selectedGenres, fecha);
-    console.log("selected Date: >>>>", fecha);
-    //aplica el nuevo filtro
-    dispatch(actionFilter(peliculas));
-  };
-
   /**
    *
    * @param {*} texto parametro String con el nombre de la busqueda
-   * @param {*} generos
-   * @param {*} opcFecha
+   * @param {*} generos parametro Arreglo con los nombres de los generos para filtrar
+   * @param {*} opcFecha parametro numerico para ordenar el objeto de salida, 0 muevas-antiguas, 1 antiguas-nuevas, 2 0-10 puntuacion, 3 10-0 puntuacion.
    * @author [Diego Fernando]
    * @description
    * @version 1.0.0
    * @date 26/08/2021
-   * @returns
+   * @returns objeto ordenado
    */
   const aplicarFiltro = (texto, generos, opcFecha) => {
     const filtroBusqueda =
@@ -101,7 +92,7 @@ const Ejercicio3 = () => {
           return filtroBusqueda.sort((f1, f2) => {
             const fechaIndex1 = new Date(f1.release_date);
             const fechaIndex2 = new Date(f2.release_date);
-            const fil = fechaIndex1 - fechaIndex2;
+            const fil = fechaIndex2 - fechaIndex1;
 
             return fil;
           });
@@ -110,7 +101,7 @@ const Ejercicio3 = () => {
           return filtroBusqueda.sort((f1, f2) => {
             const fechaIndex1 = new Date(f1.release_date);
             const fechaIndex2 = new Date(f2.release_date);
-            const fil = fechaIndex2 - fechaIndex1;
+            const fil = fechaIndex1 - fechaIndex2;
             return fil;
           });
 
@@ -145,14 +136,10 @@ const Ejercicio3 = () => {
         <button className='btn btn-secundary btn-sm' onClick={lupaClick}>
           <img src={lupa} alt='lupa' />
         </button>
-        <Desplegable generos={BancoPeliculas.genres} />
+        <Desplegable generos={busquedaPeliculas.genres} />
         <span> Ordenar</span>
 
-        <Filtro
-          onActive={handleOnActiveFiltro}
-          /*
-          fechas={busquedaPeliculas.genres}*/
-        />
+        <Filtro />
       </div>
 
       <div className='container-fluid m-2 p-2 '>
@@ -172,31 +159,32 @@ const Ejercicio3 = () => {
       </div>
     </div>
   );
+
+  function generos(ids) {
+    let generos = [];
+
+    ids?.map((cantidad) =>
+      generos.push(
+        busquedaPeliculas.genres.filter(
+          (busqueda) => busqueda.id === cantidad
+        )[0].name
+      )
+    );
+
+    return generos.join(",");
+  }
+  function generosIds2Label(ids) {
+    let generos = [];
+
+    ids?.map((cantidad) =>
+      generos.push(
+        busquedaPeliculas.genres.filter(
+          (busqueda) => busqueda.id === cantidad
+        )[0].name
+      )
+    );
+    return generos;
+  }
 };
-
-function generos(ids) {
-  let generos = [];
-
-  ids.map((cantidad) =>
-    generos.push(
-      BancoPeliculas.genres.filter((busqueda) => busqueda.id === cantidad)[0]
-        .name
-    )
-  );
-
-  return generos.join(",");
-}
-function generosIds2Label(ids) {
-  let generos = [];
-
-  ids.map((cantidad) =>
-    generos.push(
-      BancoPeliculas.genres.filter((busqueda) => busqueda.id === cantidad)[0]
-        .name
-    )
-  );
-
-  return generos;
-}
 
 export default Ejercicio3;

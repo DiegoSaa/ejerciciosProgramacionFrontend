@@ -3,14 +3,16 @@ import flecha from "../data/Arrow Icon.png";
 import React, { useState } from "react";
 import "./stylesMenu.css";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionFilter } from "../actions/fechaActions";
+
 const Filtro = (props) => {
-  const [filterData, setFilter] = useState(0);
+  const dispatch = useDispatch();
+  const { filterData } = useSelector((state) => state.fechaReducer);
 
   const toggle = (e) => {
     const selected = parseInt(e);
-    props.onActive(selected);
-    setFilter(selected);
-    console.log("valor señal onSelect: ", e);
+    dispatch(actionFilter(selected));
   };
 
   return (

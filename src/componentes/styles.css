@@ -1,9 +1,9 @@
 .movie {
   width: 420px;
-  margin: 0px;
+  margin: 0px 0px;
   font-size: 10px;
   text-align: justify;
-  padding: 3px;
+  padding: 0px 0px;
 }
 
 .p {
@@ -21,8 +21,23 @@
   height: 300px;
 }
 
-.container {
+.ancho {
   width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
 }
 
 .estrella {

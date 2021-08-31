@@ -1,5 +1,5 @@
-export const actionNumero = (num) => ({
-  type: "secuencia/numero",
+export const actionSet = (num) => ({
+  type: "secuencia/set",
   numero: num,
 });
 

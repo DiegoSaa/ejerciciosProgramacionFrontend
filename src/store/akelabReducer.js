@@ -23,13 +23,13 @@ const secuencia = (num) => {
 
 const akelabReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "secuencia/numero":
+    case "secuencia/set":
       return {
-        valor: action.numero,
+        salida: action.numero,
       };
     case "secuencia/calculo":
       return {
-        salida: secuencia(state.valor),
+        salida: secuencia(state.salida),
       };
     default:
       return state;

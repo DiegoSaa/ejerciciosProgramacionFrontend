@@ -1,61 +1,55 @@
-import React from 'react';
+import React from "react";
 import "./styles.css";
-import Estrellas from "../componentes/estrellas.jsx"
+import Estrellas from "../componentes/estrellas.jsx";
 
-const url_peliculas="https://image.tmdb.org/t/p/w500"
+const url_peliculas = "https://image.tmdb.org/t/p/w500";
 
-const Pelicula=(props)=>{
+const Pelicula = (props) => {
+  var fecha = new Date(props.info.release_date);
 
-    var fecha = new Date(props.info.release_date);
+  return (
+    <div className='movie border rounded border-dark m-2 p-1'>
+      <div className='container'>
+        <div className='row'>
+          <h3 className='tituloPelicula'>
+            {props.info.title + " (" + fecha.getFullYear() + ")"}
+          </h3>
 
-    
-    return ( 
+          <img
+            className='movieImagen'
+            src={url_peliculas + props.info.poster_path}
+            alt={props.info.title}
+          />
 
-      
-        <div className="movie border rounded border-dark m-2 p-2">
-            <div className="container">
-                <div className="row">
-                    <h3 className="tituloPelicula">{props.info.title+" ("+fecha.getFullYear()+")" }</h3>
+          <div className='col'>
+            <p>{props.info.overview}</p>
 
-                   
-                    <img className="movieImagen" src={url_peliculas+props.info.poster_path}  alt={props.info.title} />
+            <p>
+              <b>Titulo: </b>
+              {props.info.original_title}
+            </p>
 
-                    <div className="col">
-                        <p>{props.info.overview}</p>
+            <div className='contenedor-estrella'>
+              <p>
+                <b>Calificación: </b> <span>{props.info.vote_average}</span>
+              </p>
 
-                        <p>
-                            <b>Titulo: </b>
-                            {props.info.original_title}
-                        </p>
-
-                        <div className="contenedor-estrella">
-
-                            <p>
-                                <b>Calificación: </b> <span>{props.info.vote_average}</span>
-                                
-                            </p>
-    
-                            <Estrellas  key="estrellas" estrellas={props.info.vote_average}/>
-                                
-                      
-                        </div>
-
-                        <p>
-                            <b>Genero: </b> <span>{props.genero}</span>
-                        </p>
-
-                        <p>
-                            <b>Fecha de realización: </b> <span>{props.info.release_date}</span>
-                        </p>
-                            
-                    </div>
-                   
-                </div>
+              <Estrellas key='estrellas' estrellas={props.info.vote_average} />
             </div>
+
+            <p>
+              <b>Genero: </b> <span>{props.genero}</span>
+            </p>
+
+            <p>
+              <b>Fecha de realización: </b>{" "}
+              <span>{props.info.release_date}</span>
+            </p>
+          </div>
         </div>
-      
-    );
-    
-}
- 
+      </div>
+    </div>
+  );
+};
+
 export default Pelicula;
