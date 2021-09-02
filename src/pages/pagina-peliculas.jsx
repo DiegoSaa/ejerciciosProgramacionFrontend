@@ -10,7 +10,6 @@ import {
   actionGet,
   actionFilter,
   actionGenres,
-  actionDate,
 } from "../actions/peliculasActions";
 
 const Ejercicio3 = () => {
@@ -81,7 +80,7 @@ const Ejercicio3 = () => {
       busquedaPeliculas.results === undefined ||
       busquedaPeliculas.results.filter(
         (movie) =>
-          generos.every((genId) =>
+          generos?.every((genId) =>
             generosIds2Label(movie.genre_ids).includes(genId)
           ) && movie.title.toLowerCase().includes(texto.toLowerCase())
       );

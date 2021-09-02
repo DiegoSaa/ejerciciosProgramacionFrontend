@@ -1,6 +1,6 @@
 import { Dropdown } from "react-bootstrap";
 import flecha from "../data/Arrow Icon.png";
-import React, { useState } from "react";
+import React from "react";
 import "./stylesMenu.css";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -26,21 +26,11 @@ const Filtro = (props) => {
           {" "}
           <b>Fecha </b>
         </Dropdown.Item>
-        <Dropdown.Item
-          id='0'
-          key='0'
-          eventKey='0'
-          active={filterData === 0 ? true : false}
-        >
+        <Dropdown.Item id='0' key='0' eventKey='0' active={filterData === 0}>
           {" "}
           Nuevas - Antiguas{" "}
         </Dropdown.Item>
-        <Dropdown.Item
-          id='1'
-          key='1'
-          eventKey='1'
-          active={filterData === 1 ? true : false}
-        >
+        <Dropdown.Item id='1' key='1' eventKey='1' active={filterData === 1}>
           {" "}
           Antiguas - Nuevas{" "}
         </Dropdown.Item>
@@ -48,21 +38,11 @@ const Filtro = (props) => {
           {" "}
           <b>Calificación </b>
         </Dropdown.Item>
-        <Dropdown.Item
-          id='2'
-          key='2'
-          eventKey='2'
-          active={filterData === 2 ? true : false}
-        >
+        <Dropdown.Item id='2' key='2' eventKey='2' active={filterData === 2}>
           {" "}
           0 - 10 puntos{" "}
         </Dropdown.Item>
-        <Dropdown.Item
-          id='3'
-          key='3'
-          eventKey='3'
-          active={filterData === 3 ? true : false}
-        >
+        <Dropdown.Item id='3' key='3' eventKey='3' active={filterData === 3}>
           {" "}
           10 - 0 puntos{" "}
         </Dropdown.Item>
