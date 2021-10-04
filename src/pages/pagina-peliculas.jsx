@@ -4,6 +4,8 @@ import Desplegable from "../componentes/genero";
 import Filtro from "../componentes/filtroFechaTitulo";
 import lupa from "../data/Vector.png";
 
+import './style.css';
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   actionText,
@@ -119,6 +121,14 @@ const Ejercicio3 = () => {
             const fil = v2Index - v1Index;
             return fil;
           });
+        case 4:
+          return filtroBusqueda.sort((v1, v2) => {
+            return v1.title.localeCompare(v2.title);
+          });
+        case 5:
+          return filtroBusqueda.sort((v1, v2) => {
+            return v2.title.localeCompare(v1.title);
+          });
 
         default:
           return [];
@@ -130,8 +140,8 @@ const Ejercicio3 = () => {
   return (
     <div>
       <h1>Películas</h1>
-      <div>
-        <input onChange={textChange} />
+      <div className="Movies__container">
+        <input  />
         <button className='btn btn-secundary btn-sm' onClick={lupaClick}>
           <img src={lupa} alt='lupa' />
         </button>

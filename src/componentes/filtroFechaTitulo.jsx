@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionFilter } from "../actions/fechaActions";
 
 const Filtro = (props) => {
+
   const dispatch = useDispatch();
   const { filterData } = useSelector((state) => state.fechaReducer);
 
@@ -16,8 +17,8 @@ const Filtro = (props) => {
   };
 
   return (
-    <Dropdown className='btn' onSelect={toggle}>
-      <Dropdown.Toggle className='btn btn-secundary btn-sm btn-light'>
+    <Dropdown className='Filtro__flecha-right' onSelect={toggle}>
+      <Dropdown.Toggle className='Filtro__flecha-right btn btn-secundary btn-sm btn-light'>
         <img className='flecha' src={flecha} alt='flecha' />
       </Dropdown.Toggle>
 
@@ -34,6 +35,20 @@ const Filtro = (props) => {
           {" "}
           Antiguas - Nuevas{" "}
         </Dropdown.Item>
+        {/* Nuevo item */}
+        <Dropdown.Item id='item3' key='item3' disabled>
+          {" "}
+          <b>Alfabético</b>
+        </Dropdown.Item>
+        <Dropdown.Item id='4' key='4' eventKey='4' active={filterData===4}>
+          {" "}
+          Ascendente{" "}
+        </Dropdown.Item>
+        <Dropdown.Item id='5' key='5' eventKey='5' active={filterData===5}>
+          {" "}
+          Descendente{" "}
+        </Dropdown.Item>
+        {/* Nuevo item */}
         <Dropdown.Item id='item2' key='item2' disabled>
           {" "}
           <b>Calificación </b>
@@ -48,7 +63,7 @@ const Filtro = (props) => {
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-  );
+  )
 };
 
 export default Filtro;
